@@ -1,0 +1,7 @@
+<beans>
+	<bean id="klassDAO1" class="KlassDAO" />
+	<bean id="klassDAO2" class="KlassDAO2" />
+	<bean id="klassService" class="KlassService">
+		<property name="klassDAO" ref="klassDAO2" />
+	</bean>
+</beans>

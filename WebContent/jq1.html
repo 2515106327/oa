@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery-2.2.1.js"></script>
+<script>
+	$(function(){
+		//alert("Hello jQuery!");
+		//alert($("#name").val())
+		//alert(document.getElementById("name").value)
+		//$("#test").on("click",function(){
+			$.getJSON("klass?opr=ajaxquery",function(klasses){
+				for(var i=0;i<klasses.length;i++){
+					var klass=klasses[i];
+					var newOption="<option value="+klass.id+">"+klass.name+"</option>";
+					$("#klasses").append(newOption);
+				}
+			});
+
+			$("#klasses").change(function(){
+				$("#students").empty();
+				$.getJSON("student?opr=ajaxquerybyklassid&klassid="+this.value,function(studnets){
+					
+					for(var i=0;i<studnets.length;i++){
+						var stu=studnets[i];
+						var newOption="<option value="+stu.id+">"+stu.name+"</option>";
+						$("#students").append(newOption);
+					}
+				});
+			});
+		//});
+	});
+
+	//window.onload=function(){}
+
+</script>
+</head>
+<body>
+   <input type="text" id="name" value="tom"/>
+   <input type="button" value="测试" id="test"/>
+   班级:<select id="klasses">
+     <option>请选择班级</option>
+   	</select>
+   
+   <select id="students">
+    <option>请选择学生</option>
+   	</select>
+</body>
+</html>

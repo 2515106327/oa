@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<link rel="stylesheet" href="css/pintuer.css">
+<link rel="stylesheet" href="css/admin.css">
+<script type="text/javascript">
+	window.onload=function(){
+		var xhr=new XMLHttpRequest();
+		xhr.open("get", "../student?opr=ajaxquery");
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4 && xhr.status==200){
+				//alert(xhr.responseText);
+				var json=JSON.parse(xhr.responseText);
+				for(var i=0;i<json.length;i++){
+					var stu=json[i];
+					//alert(stu.name+","+stu.birthdate);
+					var tr=document.createElement("tr");
+					var nameTd=document.createElement("td");
+					nameTd.innerText=stu.name;
+					var birthdateTd=document.createElement("td");
+					birthdateTd.innerText=stu.birthdate;
+					tr.appendChild(nameTd);
+					tr.appendChild(birthdateTd);
+					document.getElementById("stuTable").appendChild(tr);
+				}
+			}
+		}
+		xhr.send();
+	}
+</script>
+</head>
+<body>
+
+	<div class="panel admin-panel">
+		<div class="panel-head">
+			<strong class="icon-reorder"> 学生列表</strong>
+		</div>
+		<table class="table table-hover text-center" id="stuTable">
+			<tr>
+				<th>选择</th>
+				<th>学生姓名</th>
+				<th>出生年月</th>
+				<th>所在班级</th>
+				<th>操作</th>
+			</tr>
+			
+		</table>
+	</div>
+	</form>
+</body>
+</html>
